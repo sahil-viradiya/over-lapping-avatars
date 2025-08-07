@@ -1,7 +1,7 @@
 name: overlapping_circles
 description: A Flutter widget to show overlapping user avatars with optional image or initials.
 version: 0.0.1
-homepage:
+homepage: https://github.com/sahil-viradiya/over-lapping-avatars
 
 environment:
   sdk: ^3.8.1
