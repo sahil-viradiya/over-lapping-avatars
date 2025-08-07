@@ -120,43 +120,44 @@ class OverlappingAvatars extends StatelessWidget {
 
   /// Construye el avatar por defecto (imagen o inicial).
   /// Construye el avatar por defecto (imagen de red, asset o inicial).
-Widget _buildDefaultAvatar(Map<String, String> user) {
-  final name = user['Name'] ?? '';
-  final url = user['url'] ?? '';
-  final firstLetter = name.isNotEmpty ? name[0].toUpperCase() : '?';
+  Widget _buildDefaultAvatar(Map<String, String> user) {
+    final name = user['Name'] ?? '';
+    final url = user['url'] ?? '';
+    final firstLetter = name.isNotEmpty ? name[0].toUpperCase() : '?';
 
-  // Determine if it's a network URL or local asset
-  final bool isNetworkUrl = url.startsWith('http://') || url.startsWith('https://');
-  final bool hasUrl = url.isNotEmpty;
+    // Determine if it's a network URL or local asset
+    final bool isNetworkUrl =
+        url.startsWith('http://') || url.startsWith('https://');
+    final bool hasUrl = url.isNotEmpty;
 
-  return CircleAvatar(
-    radius: avatarRadius,
-    backgroundColor: avatarBackgroundColor,
-    child: hasUrl
-        ? ClipOval(
-            child: isNetworkUrl
-                ? Image.network(
-                    url,
-                    width: avatarRadius * 2,
-                    height: avatarRadius * 2,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) {
-                      return Center(child: _buildFallbackText(firstLetter));
-                    },
-                  )
-                : Image.asset(
-                    url,
-                    width: avatarRadius * 2,
-                    height: avatarRadius * 2,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) {
-                      return Center(child: _buildFallbackText(firstLetter));
-                    },
-                  ),
-          )
-        : _buildFallbackText(firstLetter),
-  );
-}
+    return CircleAvatar(
+      radius: avatarRadius,
+      backgroundColor: avatarBackgroundColor,
+      child: hasUrl
+          ? ClipOval(
+              child: isNetworkUrl
+                  ? Image.network(
+                      url,
+                      width: avatarRadius * 2,
+                      height: avatarRadius * 2,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) {
+                        return Center(child: _buildFallbackText(firstLetter));
+                      },
+                    )
+                  : Image.asset(
+                      url,
+                      width: avatarRadius * 2,
+                      height: avatarRadius * 2,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) {
+                        return Center(child: _buildFallbackText(firstLetter));
+                      },
+                    ),
+            )
+          : _buildFallbackText(firstLetter),
+    );
+  }
 
   /// Construye el texto de fallback (la inicial del nombre).
   Widget _buildFallbackText(String letter) {
